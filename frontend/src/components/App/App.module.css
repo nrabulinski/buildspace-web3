@@ -1,0 +1,75 @@
+.main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.h {
+	font-size: 3em;
+	margin: 10px;
+}
+
+.header {
+	position: relative;
+	background-image: url("./bg.png");
+	background-size: cover;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 80vh;
+	width: 100%;
+}
+
+.btn {
+	margin: 10px;
+	padding: .5em 2em;
+	background: rgba(255, 255, 255, 0.2);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.4);
+	font-size: 1.5em;
+	transition: all .5s ease;
+	cursor: pointer;
+}
+
+.btn.disabled {
+	background: rgba(0, 0, 0, 0.5);
+	cursor: not-allowed;
+}
+
+.btn.loading {
+	background: rgba(155, 155, 255, 0.4);
+	cursor: wait
+}
+
+.btn:hover:not(.disabled):not(.loading) {
+	background: rgba(255, 255, 255, 0.4);
+	border-color: rgba(255, 255, 255, 0.1);
+}
+
+.hand {
+	display: inline-block;
+	transition: all .5s ease;
+}
+
+.btn:hover:not(.disabled):not(.loading) .hand {
+	transform: rotate(30deg);
+}
+
+.content {
+	padding: 2em 0;
+	width: 80vw;
+	max-width: 2000px;
+}
+
+.counter {
+	position: absolute;
+	bottom: 1em;
+	opacity: 1;
+	transition: all .5s ease;
+}
+
+.counter.hidden {
+	bottom: -1em;
+	opacity: 0;
+}

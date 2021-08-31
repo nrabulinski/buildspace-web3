@@ -1,0 +1,10 @@
+####{BSB GENERATED: NO EDIT
+FLG -ppx '/home/niko/projects/buildspace-web3/node_modules/.pnpm/rescript@9.1.4/node_modules/rescript/linux/bsc.exe -as-ppx '
+S /home/niko/projects/buildspace-web3/node_modules/.pnpm/rescript@9.1.4/node_modules/rescript/lib/ocaml
+B /home/niko/projects/buildspace-web3/node_modules/.pnpm/rescript@9.1.4/node_modules/rescript/lib/ocaml
+FLG -w +a-4-9-20-40-41-42-50-61-102
+S /home/niko/projects/buildspace-web3/node_modules/@ryyppy/rescript-promise/lib/ocaml
+B /home/niko/projects/buildspace-web3/node_modules/@ryyppy/rescript-promise/lib/ocaml
+S scripts
+B lib/bs/scripts
+####BSB GENERATED: NO EDIT}
