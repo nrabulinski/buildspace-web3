@@ -9,7 +9,7 @@ external alert: 'a => unit = "alert"
 @react.component
 let default = () => {
 	let lazy(ethereum) = ethereum
-	let address = "0x5E6ff6E0Fc04265EBD102bf16A89Cc3892135a85"
+	let address = "0xCDb6A538756c773f4518A723aB5E27F703f4C4d6"
 	let (modal, setModal) = React.useState(() => false)
 	let (wallet, setWallet) = React.useState(() => None)
 	let (transactionPending, setTransactionPending) = React.useState(() => 0)
@@ -22,9 +22,9 @@ let default = () => {
 			let signer = web3Provider(ethereum)->getSigner
 			let contract = contract(address, abi["abi"], signer)
 
-			let handleWave = (waver, timestamp, message) => 
+			let handleWave = (waver, timestamp, message, won) => 
 				setWaves(arr => Array.concat(
-					[{ waver, timestamp, message }],
+					[{ waver, timestamp, message, won }],
 					arr
 				))
 
@@ -78,6 +78,11 @@ let default = () => {
 				contract->wave(message)
 			})
 			->then(txn => txn->wait)
+			->catch(e => {
+				Js.log(e)
+				alert("The transaction got rejected :(")
+				resolve()
+			})
 			->thenResolve(() => {
 				setTransactionPending(x => x - 1)
 				setModal(_ => false)
@@ -95,23 +100,50 @@ let default = () => {
 		<div className={s["header"]}>
 			<h1 className={s["h"]}>{React.string(`Hello there!`)}</h1>
 			<div className={s["header_btns"]}>
-				<button className={`${s["btn"]} ${transactionPending > 0 ? s["loading"] : ""} ${wallet->Option.mapWithDefault(s["disabled"], _ => "")}`} onClick={openModal}>
-					<span className={s["hand"]}>{React.string(`👋`)}</span>{React.string("Wave at me")}
-				</button>
-				<button className={`${s["btn"]} ${transactionPending > 0 ? s["disabled"] : ""}`} onClick={connectWallet}>
-					<span className={s["card"]}>{React.string(`💳`)}</span>{React.string("Connect your wallet")}
-				</button>
+				<AnimButton 
+					s={h => {
+						"display": "inline-block",
+						"marginRight": "1ch",
+						"transformOrigin": "bottom right",
+						"transform": h
+							? "rotate(-20deg) translateY(-0.2em)"
+							: "rotate(0deg) translateY(0em)",
+						"config": Spring.Config.jello
+					}}
+					onClick={openModal}
+					emote=`👋` 
+					className={`${s["btn"]} ${transactionPending > 0 ? s["loading"] : ""} ${wallet->Option.mapWithDefault(s["disabled"], _ => "")}`}
+				>
+					{React.string("Wave at me")}
+				</AnimButton>
+				<AnimButton 
+					s={h => {
+						"display": "inline-block",
+						"marginRight": "1ch",
+						"transform": h
+							? "rotate(25deg)"
+							: "rotate(0deg)",
+						"config": Spring.Config.jello
+					}}
+					onClick={connectWallet}
+					emote=`💳` 
+					className={`${s["btn"]} ${transactionPending > 0 ? s["disabled"] : ""}`}
+				>
+					{React.string("Connect your wallet")}
+				</AnimButton>
 			</div>
 			<p className=s["counter"]>{React.string(`I've been waved at ${waves->Array.length->Int.toString} times`)}</p>
 		</div>
 		<div className={s["content"]}>
 			<h2>{React.string("Latest waves")}</h2>
 			<>
-			...{React.array(waves->Array.map(wave => {
+			...{React.array(waves->Array.mapWithIndex((idx, wave) => {
 				<Card 
+					key={Int.toString(idx)}
 					address={wave.waver}
 					content={wave.message}
 					timestamp={wave.timestamp}
+					won={wave.won}
 				/>
 			}))}
 			</>

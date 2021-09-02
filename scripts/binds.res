@@ -1,6 +1,18 @@
 type ethers
 @val external ethers: ethers = "ethers"
 
+module Utils = {
+	type eth
+	@val @scope(("hre", "ethers", "utils"))
+	external parseEther: string => eth = "parseEther"
+
+	@val @scope(("hre", "ethers", "utils"))
+	external formatEther: eth => string = "formatEther"
+
+	@val @scope(("hre", "ethers", "provider"))
+	external getBalance: string => Js.Promise.t<eth> = "getBalance"
+}
+
 type hre = {
 	ethers: ethers
 }
@@ -22,6 +34,13 @@ type waveContract = {
 	address: string
 }
 @send external deploy: waveContractFactory => Js.Promise.t<waveContract> = "deploy"
+
+@send external _deployObj: (waveContractFactory, {..}) => Js.Promise.t<waveContract> = "deploy"
+
+let deployWithValue = (waveContractFactory, val) => 
+	waveContractFactory->_deployObj({
+		"value": Utils.parseEther(Belt.Float.toString(val))
+	})
 
 @send external deployed: waveContract => Js.Promise.t<unit> = "deployed"
 

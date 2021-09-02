@@ -3,18 +3,31 @@ open Binds
 
 hre.ethers
 	->getWaveContractFactory
-	->then(factory => factory->deploy)
+	->then(factory => factory->deployWithValue(0.1))
 	->then(contract => {
 		Js.log2("Contract address:", contract.address)
-		contract->getTotalWaves->thenResolve(count => (contract, count))
+		all2((
+			contract->getTotalWaves,
+			Utils.getBalance(contract.address)
+		))
+		->thenResolve(((count, balance)) => (contract, count, balance))
 	})
-	->then(((contract, count)) => {
-		Js.log(count->toString)
+	->then(((contract, count, balance)) => {
+		Js.log2("Wave count:", count->toString)
+		Js.log2("Contract balance:", Utils.formatEther(balance))
+
 		contract->wave("hello world")
 			->then(txn => txn->wait)
 			->then(() => contract->wave("another one"))
 			->then(txn => txn->wait)
-			->then(() => contract->getAllWaves)
+			->thenResolve(() => contract)
 	})
-	->thenResolve(waves => Js.log2("All waves:", waves))
+	->then(contract => all2((
+		contract->getAllWaves,
+		Utils.getBalance(contract.address)
+	)))
+	->thenResolve(((waves, balance)) => {
+		Js.log2("All waves:", waves)
+		Js.log2("Contract balance:", Utils.formatEther(balance))
+	})
 	->ignore

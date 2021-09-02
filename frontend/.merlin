@@ -9,6 +9,8 @@ S /home/niko/projects/buildspace-web3/frontend/node_modules/@ryyppy/rescript-pro
 B /home/niko/projects/buildspace-web3/frontend/node_modules/@ryyppy/rescript-promise/lib/ocaml
 S src
 B lib/bs/src
+S src/react-spring
+B lib/bs/src/react-spring
 S src/components/App
 B lib/bs/src/components/App
 S src/components/Card

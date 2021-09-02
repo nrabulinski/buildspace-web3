@@ -9,7 +9,7 @@ ethers
 		Js.log2("Account balance:", balance->toString)
 
 		ethers->getWaveContractFactory
-			->then(factory => factory->deploy)
+			->then(factory => factory->deployWithValue(0.01))
 	})
 	->thenResolve(contract => Js.log2("WavePortal address:", contract.address))
 	->ignore
