@@ -4,6 +4,25 @@
 	align-items: center;
 }
 
+.message {
+	width: 70vw;
+	height: 15em;
+}
+
+.message_btn {
+	border: none;
+	padding: 1em;
+	margin: 10px 0;
+	border-radius: 5px;
+	background: #eee;
+	transition: all .5s ease;
+	cursor: pointer;
+}
+
+.message_btn:hover {
+	background: #ddd;
+}
+
 .h {
 	font-size: 3em;
 	margin: 10px;
@@ -19,6 +38,14 @@
 	align-items: center;
 	min-height: 80vh;
 	width: 100%;
+}
+
+.header_btns {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
 }
 
 .btn {
@@ -47,13 +74,28 @@
 	border-color: rgba(255, 255, 255, 0.1);
 }
 
+.hand, .card {
+	margin-right: 1ch;
+}
+
 .hand {
 	display: inline-block;
 	transition: all .5s ease;
+	transform-origin: bottom right;
 }
 
 .btn:hover:not(.disabled):not(.loading) .hand {
-	transform: rotate(30deg);
+	transform: rotate(-15deg) translateY(-0.1em);
+}
+
+.card {
+	display: inline-block;
+	transition: all .5s ease;
+	transform-origin: center;
+}
+
+.btn:hover:not(.disabled):not(.loading) .card {
+	transform: rotate(20deg);
 }
 
 .content {
@@ -72,4 +114,8 @@
 .counter.hidden {
 	bottom: -1em;
 	opacity: 0;
+}
+
+footer {
+	margin: 1ch;
 }

@@ -11,4 +11,10 @@ S src
 B lib/bs/src
 S src/components/App
 B lib/bs/src/components/App
+S src/components/Card
+B lib/bs/src/components/Card
+S src/components/Modal
+B lib/bs/src/components/Modal
+S src/utils
+B lib/bs/src/utils
 ####BSB GENERATED: NO EDIT}

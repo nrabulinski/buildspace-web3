@@ -1,0 +1,26 @@
+.card {
+	padding: 0.5em 1em;
+	margin-bottom: 1.5em;
+	border-radius: 10px;
+	box-shadow: 0 0 15px rgba(70, 30, 70, 0.2);
+	overflow: hidden;
+}
+
+.card p {
+	margin: 10px 0;
+}
+
+.address {
+	font-size: 0.8em;
+	color: grey;
+}
+
+.content {
+	font-size: 1.2em;
+	overflow-wrap: break-word;
+}
+
+.timestamp {
+	font-size: 0.8em;
+	font-style: italic;
+}

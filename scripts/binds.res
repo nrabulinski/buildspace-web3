@@ -28,8 +28,14 @@ type waveContract = {
 @send external connect: (waveContract, signer) => Js.Promise.t<waveContract> = "connect"
 
 // Bindings to WavePortal.sol
+type wave = {
+	waver: string,
+	message: string,
+	timestamp: bigNumber
+}
 type waveTxn
 @send external wait: waveTxn => Js.Promise.t<unit> = "wait"
 
-@send external wave: waveContract => Js.Promise.t<waveTxn> = "wave"
+@send external wave: (waveContract, string) => Js.Promise.t<waveTxn> = "wave"
 @send external getTotalWaves: waveContract => Js.Promise.t<bigNumber> = "getTotalWaves"
+@send external getAllWaves: waveContract => Js.Promise.t<array<wave>> = "getAllWaves"

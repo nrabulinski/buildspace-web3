@@ -34,4 +34,24 @@ type waveTxn
 @send external wait: waveTxn => Js.Promise.t<unit> = "wait"
 @get external hash: waveTxn => string = "hash"
 
-@send external wave: contract => Js.Promise.t<waveTxn> = "wave"
+@send external wave: (contract, string) => Js.Promise.t<waveTxn> = "wave"
+
+type wavet = {
+	waver: string,
+	message: string,
+	timestamp: float
+}
+@send external getAllWaves: contract => Js.Promise.t<array<wavet>> = "getAllWaves"
+
+@send external on: (
+		contract, 
+		@string [
+			| #newWave((string, float, string) => unit)
+		]
+	) => contract = "on"
+@send external off: (
+		contract, 
+		@string [
+			| #newWave((string, float, string) => unit)
+		]
+	) => contract = "off"
